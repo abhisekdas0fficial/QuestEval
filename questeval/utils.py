@@ -6,10 +6,7 @@ import collections
 import torch
 import hashlib
 
-from transformers import (
-    T5ForConditionalGeneration,
-    T5Tokenizer,
-)
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
 
 def text2hash(string: str) -> str:
@@ -55,13 +52,9 @@ class API_T2T:
         device: str = "cuda"
     ) -> None:
         self.pretrained_model_name_or_path = pretrained_model_name_or_path
-        self.tokenizer = T5Tokenizer.from_pretrained(
-            pretrained_model_name_or_path=pretrained_model_name_or_path
-        )
-
-        self.model = T5ForConditionalGeneration.from_pretrained(
-            pretrained_model_name_or_path=pretrained_model_name_or_path
-        )
+        
+        self.tokenizer = AutoTokenizer.from_pretrained(pretrained_model_name_or_path)
+        self.model = AutoModelForSeq2SeqLM.from_pretrained(pretrained_model_name_or_path)
 
         self.keep_score_idx = keep_score_idx
 

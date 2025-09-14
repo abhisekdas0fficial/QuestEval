@@ -204,7 +204,7 @@ class QuestEval:
                 list_references=batch_list_references,
             )
 
-        result = {'corpus_score': np.average(scores), 'ex_level_scores': scores}
+        result = {'corpus_score': np.mean(scores), 'ex_level_scores': scores}
         return result
 
     def _batch_questeval(
@@ -627,7 +627,7 @@ class QuestEval:
             else:
                 hyp_score = self._base_score(hyp_log, compared_log)
                 compared_score = self._base_score(compared_log, hyp_log)
-                score = np.average([hyp_score, compared_score])
+                score = np.mean([hyp_score, compared_score])
             scores.append(score)
         return self.reduction_multi_refs(scores)
 
@@ -671,7 +671,7 @@ class QuestEval:
 
             list_scores += scores
 
-        final_score = np.average(list_scores)
+        final_score = np.mean(list_scores)
         assert 0 <= final_score <= 1, "score should be in [0-1] "
         return final_score
 
